@@ -1,0 +1,8 @@
+results/
+logs/
+__pycache__/
+*.pyc
+.env
+.venv/
+.ruff_cache/
+.DS_STORE

@@ -1,0 +1,49 @@
+[project]
+name = "legal-research-agent"
+authors = [
+  { name = "Vals AI, Inc.", email = "contact@vals.ai" },
+]
+version = "0.1.0"
+description = "Legal Research Agent Benchmark Codebase"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+
+dependencies = [
+    "aiohttp>=3.13.2",
+    "backoff>=2.2.1",
+    "beautifulsoup4>=4.14.3",
+    "dotenv>=0.9.9",
+    "httpx",
+    "model-library==0.1.25",
+    "python-dotenv>=1.0.0",
+    "tavily-python>=0.7.23",
+    "tqdm>=4.66.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["legal_agent"]
+
+[project.scripts]
+legal-research = "legal_agent.run_agent:main_sync"
+
+[dependency-groups]
+dev = [
+  # style
+  "ruff",
+  "basedpyright",
+  # env
+  "dotenv",
+]
+
+[tool.basedpyright]
+exclude = [
+  "data/*",
+  ".*",
+]
+typeCheckingMode = "basic"
+reportExplicitAny = false
