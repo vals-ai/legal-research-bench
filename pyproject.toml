@@ -51,3 +51,4 @@ reportExplicitAny = false
 [tool.uv]
 required-version = ">=0.13.5"
 exclude-newer = "7 days"
+exclude-newer-package = { model-library = false }
