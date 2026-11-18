@@ -61,7 +61,6 @@ class LegalAgent(Agent):
         state: dict[str, Any] | None = None,
         output_dir: Path,
         logger: Logger,
-        docent_ingest: bool = False,
         atif_export: bool = False,
     ) -> AgentResult:
         if state is None:
@@ -291,27 +290,6 @@ class LegalAgent(Agent):
 
         elapsed = time.monotonic() - start_time
         answer = self._hooks.determine_answer(state, raw_turns, final_error)
-
-        if docent_ingest:
-            if not run_id:
-                logger.warning("Docent ingestion skipped: run_id not provided")
-            else:
-                try:
-                    from model_library.docent import (
-                        agent_turns_to_docent_agent_run,
-                        ingest,
-                    )
-
-                    ingest(
-                        run_id,
-                        agent_turns_to_docent_agent_run(
-                            raw_turns,
-                            question_id,
-                            answer,
-                        ),
-                    )
-                except Exception:
-                    logger.warning("Docent ingestion failed", exc_info=True)
 
         if atif_export:
             try:
