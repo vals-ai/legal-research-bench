@@ -190,7 +190,9 @@ def llm_summary_compactor(
         ]
         artifacts = output_dir / "compactions" / f"compaction_{compaction_number:03d}"
         artifacts.mkdir(parents=True, exist_ok=True)
-        (artifacts / "previous_history.bin").write_bytes(LLM.serialize_input(history))
+        (artifacts / "previous_history.bin").write_text(
+            LLM.serialize_input(history), encoding="utf-8"
+        )
         rel = str(artifacts.relative_to(output_dir))
         logger.info(
             "History compacted: %s -> %s items | summary=%r",
